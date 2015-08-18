@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spassgen", "spassgen\spassgen.csproj", "{BC04FF63-43E2-485D-8EEA-D394317EABD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "genmodel", "genmodel\genmodel.csproj", "{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spassgentest", "spassgentest\spassgentest.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC04FF63-43E2-485D-8EEA-D394317EABD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC04FF63-43E2-485D-8EEA-D394317EABD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC04FF63-43E2-485D-8EEA-D394317EABD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC04FF63-43E2-485D-8EEA-D394317EABD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
