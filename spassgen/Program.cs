@@ -13,14 +13,21 @@ namespace com.ovarchenko.tools.generators.password
     using System.Text;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Program.
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
         static void Main (string[] args)
         {
-            //for examples look here: http://fclp.github.io/fluent-command-line-parser/
+            // for examples look here: http://fclp.github.io/fluent-command-line-parser/
             var p = new FluentCommandLineParser ();
             var builder = new PasswordBuilder ();
-            /*
+            /* 
 			p.Setup<int>('n',"minimal")
 			 .Callback(min => builder.SetMinimalLength(min))
 			 .SetDefault(8);
@@ -58,16 +65,20 @@ namespace com.ovarchenko.tools.generators.password
 
             p.Parse (args);
 
-            try {
+            try 
+            {
                 string password = builder.Generate ();	
                 Console.WriteLine (password);
             } 
 			// TODO: use special PasswordBuilder exception there
-			catch (AggregateException e) {
-                foreach (var ex in e.InnerExceptions) {
-                    Console.WriteLine (ex.Message);
-                    if (ex is ArgumentException)
+			catch (AggregateException e) 
+            {
+                foreach (var ex in e.InnerExceptions) 
+                {
+                    Console.WriteLine(ex.Message);
+                    if (ex is ArgumentException) {
                         Console.WriteLine ("The parameters is invalid, processing is stopped.");
+                    }
                 }
             }
         }

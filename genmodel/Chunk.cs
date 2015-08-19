@@ -26,40 +26,47 @@ namespace com.ovarchenko.tools.generators.password
         /// minimal appearance (0 - unlimited)
         /// </summary>
         private int min;
+
         /// <summary>
         /// Gets or sets the alpha.
         /// </summary>
         /// <value>The alpha.</value>
-        public string Alpha {
+        public string Alpha 
+        {
             get { return this.alpha; }
             set { this.alpha = value; }
         }
-
-        [Obsolete ("At usual we dont have to restrict max characters for password. It wil be removed.", false)]
+            
         /// <summary>
         /// Gets or sets the max.
         /// </summary>
         /// <value>The max.</value>
-        public int Max {
+        [Obsolete("At usual we dont have to restrict max characters for password. It wil be removed.", false)]
+        public int Max 
+        {
             get { return this.max; }
             set { this.max = value; }
         }
+
         /// <summary>
         /// Gets or sets the minimum.
         /// </summary>
         /// <value>The minimum.</value>
-        public int Min {
-            get { return min; }
-            set { min = value; }
+        public int Min 
+        {
+            get { return this.min; }
+            set { this.min = value; }
         }
+
         /// <summary>
         /// Gets the object instance.
         /// </summary>
         /// <returns>The object.</returns>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static Chunk GetObject<T> () where T: Chunk, new()
+        public static Chunk GetObject<T>() 
+            where T : Chunk, new()
         {
-            return new T ();
+            return new T();
         }
     }
 }
