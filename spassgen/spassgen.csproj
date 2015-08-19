@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentCommandLineParser, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +39,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="FluentCommandLineParser, Version=1.4.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\FluentCommandLineParser.1.4.3\lib\net35\FluentCommandLineParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -54,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\genmodel\genmodel.csproj">
-      <Project>{74cc04ad-fc91-4968-a2e2-2d391c92ecff}</Project>
+      <Project>{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}</Project>
       <Name>genmodel</Name>
     </ProjectReference>
   </ItemGroup>

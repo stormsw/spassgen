@@ -1,49 +1,65 @@
-
-using System;
+//-----------------------------------------------------------------------
+// <copyright file="Chunk.cs" company="Alexander Varchenko">
+//     Copyright (c) Alexander Varchenko. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 namespace com.ovarchenko.tools.generators.password
 {
-	/// <summary>
-	/// Chunk encapsulates single password rule
-	/// </summary>
-	public class Chunk
-	{
-		/// <summary>
-		/// character set
-		/// </summary>
-		private string alpha;
+    using System;
 
-		/// <summary>
-		/// maximum appearance (0 - unlimited)
-		/// </summary>
-		[Obsolete("At usual we dont have to restrict max characters for password. It wil be removed.",false)]
-		private int max;
+    /// <summary>
+    /// Chunk encapsulates single password rule
+    /// </summary>
+    public class Chunk
+    {
+        /// <summary>
+        /// character set
+        /// </summary>
+        private string alpha;
 
-		/// <summary>
-		/// minimal appearance (0 - unlimited)
-		/// </summary>
-		private int min;
+        /// <summary>
+        /// maximum appearance (0 - unlimited)
+        /// </summary>
+        private int max;
 
-		public string Alpha
-		{
-			get { return alpha; }
-			set { alpha = value; }
-		}
-		public int Max
-		{
-			get { return max; }
-			set { max = value; }
-		}
+        /// <summary>
+        /// minimal appearance (0 - unlimited)
+        /// </summary>
+        private int min;
+        /// <summary>
+        /// Gets or sets the alpha.
+        /// </summary>
+        /// <value>The alpha.</value>
+        public string Alpha {
+            get { return this.alpha; }
+            set { this.alpha = value; }
+        }
 
-		public int Min
-		{
-			get { return min; }
-			set { min = value; }
-		}
-
-		public static Chunk GetObject<T> () where T: Chunk, new()
-		{
-			return new T();
-		}
-
-	}
+        [Obsolete ("At usual we dont have to restrict max characters for password. It wil be removed.", false)]
+        /// <summary>
+        /// Gets or sets the max.
+        /// </summary>
+        /// <value>The max.</value>
+        public int Max {
+            get { return this.max; }
+            set { this.max = value; }
+        }
+        /// <summary>
+        /// Gets or sets the minimum.
+        /// </summary>
+        /// <value>The minimum.</value>
+        public int Min {
+            get { return min; }
+            set { min = value; }
+        }
+        /// <summary>
+        /// Gets the object instance.
+        /// </summary>
+        /// <returns>The object.</returns>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static Chunk GetObject<T> () where T: Chunk, new()
+        {
+            return new T ();
+        }
+    }
 }
