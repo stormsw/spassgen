@@ -27,6 +27,8 @@ namespace OV.Tools.Generators.Password
             // for examples look here: http://fclp.github.io/fluent-command-line-parser/
             var p = new FluentCommandLineParser ();
             var builder = new PasswordBuilder ();
+
+			p.SetupHelp("?", "help").Callback(text => Console.WriteLine(text));
             /* 
 			p.Setup<int>('n',"minimal")
 			 .Callback(min => builder.SetMinimalLength(min))
@@ -38,7 +40,7 @@ namespace OV.Tools.Generators.Password
 			*/
             p.Setup<int> ('l', "length")
 			 .Callback (value => builder.SetLength (value))
-			 .SetDefault (8); //Can be Required()
+			 .SetDefault (8).WithDescription("Set password length."); //Can be Required()
 			
             /*
 			int alphaLength = 1;
@@ -48,22 +50,26 @@ namespace OV.Tools.Generators.Password
 			 .SetDefault(8); //Can be Required()*/
 
             p.Setup<bool> ('s', "special")
-			 .Callback (silent => builder.AddConditional<SpecialChars> (true, 1))
-			 .SetDefault (false);
+			 .Callback (silent => builder.AddConditional<SpecialChars> (silent, 1))
+			 .SetDefault (false).WithDescription(string.Format("Use special: {0}",new SpecialChars().Alpha));
 
             p.Setup<bool> ('d', "digits")
-			 .Callback (silent => builder.AddConditional<Numerals> (true, 2))
-			 .SetDefault (true);
+			 .Callback (silent => builder.AddConditional<Numerals> (silent, 1))
+			 .SetDefault(false).WithDescription(string.Format("Use numeric characters: {0}", new Numerals().Alpha));
 
             p.Setup<bool> ('a', "small-chars")
-			 .Callback (silent => builder.AddConditional<LowAlpha> (true, 3))
-			 .SetDefault (true);
+			 .Callback (silent => builder.AddConditional<LowAlpha> (silent, 1))
+			 .SetDefault(false).WithDescription(string.Format("Use low alpha: {0}", new LowAlpha().Alpha));
 
             p.Setup<bool> ('z', "caps-chars")
-			 .Callback (silent => builder.AddConditional<CapsAlpha> (true, 1))
-			 .SetDefault (true);
+			 .Callback (silent => builder.AddConditional<CapsAlpha> (silent, 1))
+			 .SetDefault(false).WithDescription(string.Format("Use capitals: {0}", new CapsAlpha().Alpha));
 
-            p.Parse (args);
+			p.Setup<string>('x', "custom")
+			 .Callback(value => builder.AddChunk(new Chunk(){Alpha=value,Min=1}))
+			 .WithDescription("Use custom charset");
+
+			p.Parse (args);
 
             try 
             {
