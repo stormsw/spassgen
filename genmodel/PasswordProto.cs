@@ -3,7 +3,7 @@
 //     Copyright (c) Alexander Varchenko. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace com.ovarchenko.tools.generators.password
+namespace OV.Tools.Generators.Password
 {
     using System;
     using System.Collections.Concurrent;

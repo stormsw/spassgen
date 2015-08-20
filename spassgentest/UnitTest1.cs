@@ -1,9 +1,9 @@
-﻿using com.ovarchenko.tools.generators.password;
+﻿using OV.Tools.Generators.Password;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace com.ovarchenko.tools.generators.password.tests
+namespace OV.Tools.Generators.Password
 {
 	public class UnitTest1
 	{

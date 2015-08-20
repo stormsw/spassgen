@@ -40,4 +40,10 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\genmodel\genmodel.csproj">
+      <Project>{74CC04AD-FC91-4968-A2E2-2D391C92ECFF}</Project>
+      <Name>genmodel</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
