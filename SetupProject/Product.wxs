@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?define spassgen_TargetDir=$(var.spassgen.TargetDir)?>
+  <?define WpfSPassGenGUI_TargetDir=$(var.WpfSPassGenGUI.TargetDir)?>
+  
+  <Product Id="*" Name="Password Generator" Language="1033" Version="1.0.0.0" Manufacturer="Varchenko" UpgradeCode="35c6da6b-e8d3-4988-a9f4-7d9468eb5c19">
+
+    <Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Description="Provides spassgen.exe tool for password generation" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+    <Feature Id="ProductFeature" Title="SetupProject" Level="1">
+      <Feature Id="CmdLineToolFeature" Description="Command line tool" Absent="disallow" InstallDefault="local" Title="Commandline tool spassgen.exe" TypicalDefault="install">
+        <ComponentGroupRef Id="ProductComponents" />        
+      </Feature>
+      <!-- GUI components-->
+      <Feature Id="GuiToolFeature" Description="WPF Gui password tool" Absent="allow" InstallDefault="local" Title="GUI Password generator tool" TypicalDefault="install">
+        <ComponentGroupRef Id="ProductGuiComponents" />
+      </Feature>
+      <Feature Id="SetPathVariable" Description="Update path variable to include spassgen.exe" Absent="allow" Title="Register in System Path">
+        <ComponentGroupRef Id="ProductConfig" />
+      </Feature>
+      <!-- Shortcats-->
+      <Feature Id="ShortcutsFeature" Title="Create Application shortcuts" Absent="allow" InstallDefault="local" Description="Create application shortcuts for GUI Password generator tool" TypicalDefault="install">        
+        <Feature Id="DesktopShortcutFeature" Title="Create Desktop shortcut" Absent="allow" InstallDefault="local" Description="Create Desktop shortcut for GUI Password generator tool" TypicalDefault="install">
+          <ComponentRef Id="DesktopFolderShortcut" />
+          <!-- ComponentGroupRef Id="ProductShortcuts" /-->
+          
+        </Feature>        
+        <Feature Id="ProgramsShortcutFeature" Title="Create Programs shortcut" Absent="allow" InstallDefault="local" Description="Create Programs shortcut for GUI Password generator tool" TypicalDefault="install">
+          <ComponentRef Id="ProgramMenuSortCut"/>
+        </Feature>
+      </Feature>
+
+    </Feature>
+    <Icon Id="Icon.ico" SourceFile="$(var.spassgen_TargetDir)Icon.ico" />
+
+    <!-- Include a user interface - to be modified later -->
+    <Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="Maintainer" Name="!(bind.property.Manufacturer)">
+          <Directory Id="INSTALLFOLDER" Name="SPassGen" />
+        </Directory>        
+      </Directory>
+      <!-- These directories used for Shortcuts -->
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDirLev1" Name="!(bind.property.Manufacturer)">
+          <Directory Id="ProgramMenuDirLev2" Name="[ProductName]" />
+        </Directory>
+        <Directory Id="StartupFolder" Name="Startup" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <!-- End directories used for Shortcuts -->
+    </Directory>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="genmodel.dll" Guid="3398882f-a342-4532-a2be-ecd269c78ef3">
+        <File Id="genmodel.dll" Name="genmodel.dll" Source="$(var.spassgen_TargetDir)genmodel.dll" />
+        <RemoveFile Id="RemGenModel" Name="genmodel.dll" On="uninstall"/>
+      </Component>
+      <Component Id="spassgen.exe" Guid="e5c7a147-adfb-4043-a45e-eed038da6e84">
+        <File Id="spassgen.exe" Name="spassgen.exe" Source="$(var.spassgen_TargetDir)spassgen.exe" />
+        <RemoveFile Id="RemSpassGenModel" Name="spassgen.exe" On="uninstall"/>
+      </Component>
+      <Component Id="spassgen.exe.config" Guid="83531af9-0f5c-4054-9086-21f317d45442">
+        <File Id="spassgen.exe.config" Name="spassgen.exe.config" Source="$(var.spassgen_TargetDir)spassgen.exe.config" />
+        <RemoveFile Id="Remspassgen.exe.config" Name="spassgen.exe.config" On="uninstall"/>
+      </Component>
+      <Component Id="FluentCommandLineParser.dll" Guid="0ee4d95f-9b5b-4434-af1c-f1ddd9e59e0c">
+        <File Id="FluentCommandLineParser.dll" Name="FluentCommandLineParser.dll" Source="$(var.spassgen_TargetDir)FluentCommandLineParser.dll" />
+        <RemoveFile Id="RemFluentCommandLineParser.dll" Name="FluentCommandLineParser.dll" On="uninstall"/>
+      </Component>
+      <Component Id="Icon.ico" Guid="7ce4071a-fb33-4916-bd72-ba8c2dd70448">
+        <File Id="Icon.ico" Name="Icon.ico" Source="$(var.spassgen_TargetDir)Icon.ico" />
+        <RemoveFile Id="RemIcon" Name="Icon.ico" On="uninstall"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductConfig">
+      <Component Id="setEnvironment" Guid="19CF517F-F22C-44D5-85D4-D0A9A7532BC6" Directory="INSTALLFOLDER" KeyPath="yes">
+        <Environment Id="pathId" Action="set" Name="Path" Part="last" Permanent="no" System="no" Value="[INSTALLDIR]" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductGuiComponents" Directory="INSTALLFOLDER">
+      <Component Id="WpfSPassGenGUI.exe" Guid="47942d83-4db5-4677-8af6-998006d10053">
+        <File Id="WpfSPassGenGUI.exe" Name="WpfSPassGenGUI.exe" Source="$(var.WpfSPassGenGUI_TargetDir)WpfSPassGenGUI.exe" />
+        <RemoveFile Id="RemWpfSPassGenGUI.exe" Name="WpfSPassGenGUI.exe" On="uninstall"/>
+      </Component>
+      <Component Id="WpfSPassGenGUI.exe.config" Guid="cda637b9-d140-421d-aba6-8f5653791db4">
+        <File Id="WpfSPassGenGUI.exe.config" Name="WpfSPassGenGUI.exe.config" Source="$(var.WpfSPassGenGUI_TargetDir)WpfSPassGenGUI.exe.config" />
+        <RemoveFile Id="RemWpfSPassGenGUI.exe.config" Name="WpfSPassGenGUI.exe.config" On="uninstall"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductShortcuts">
+      <!-- Shortcuts -->
+      <Component Id="ProgramMenuSortCut" Guid="9B225623-52AF-4D8A-B0A5-4A2D34BE347C" Directory="ProgramMenuDirLev2" >
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="InstallFolder" Value="[INSTALLFOLDER]" KeyPath="yes" Type="string"/>
+        <RemoveRegistryKey Id="RemInstallFolder1" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\InstallFolder" Action="removeOnUninstall"/>
+        <Shortcut Id="ProgramMenuSortCut" 
+                  Directory="ProgramMenuDirLev2" 
+                  Name="Password Generator WPF GUI" Target="[INSTALLDIR]\WpfSPassGenGUI.exe" 
+                  WorkingDirectory="INSTALLDIR" 
+                  Icon="Icon.ico" />
+        <Condition>1</Condition>
+        <RemoveFolder Id="RemoveFolderProgramMenu" On ="uninstall"/>
+        <RemoveFolder Id="RemoveFolderProgramMenuParent" Directory="ProgramMenuDirLev1" On="uninstall"/>
+      </Component>
+<!-- example to add into startup folder
+      <Component Id="MerliniaAssistanceAdminShortcut2" Guid="Place-your-own-GUID-here">
+        <Shortcut Id="MerliniaAssistanceAdminShortcut2"
+             Directory="StartupFolder"
+             Name="SCutMer.AA2"
+             LongName="Merlinia Assistance Admin"
+             Target="[INSTALLDIR]\Admin.exe"
+             WorkingDirectory="INSTALLDIR"
+             Icon="MerAs.ico" />
+        <Condition>0</Condition>
+      </Component>
+-->
+      <Component Id="DesktopFolderShortcut" Guid="7F34336B-C3AA-4025-8339-C5C4386E5D02" Directory="DesktopFolder">
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="InstallFolder" Value="[INSTALLFOLDER]" KeyPath="yes" Type="string"/>
+        <RemoveRegistryKey Id="RemInstallFolder2" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\InstallFolder" Action="removeOnUninstall"/>
+        <Shortcut Id="DesktopFolderShortcut" 
+                  Directory="DesktopFolder" 
+                  Name="Password Generator WPF GUI" Target="[INSTALLDIR]\WpfSPassGenGUI.exe" 
+                  WorkingDirectory="INSTALLDIR" Icon="Icon.ico" />
+        <Condition>1</Condition>        
+      </Component>
+      
+    </ComponentGroup>
+  </Fragment>
+</Wix>
