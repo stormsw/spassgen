@@ -10,7 +10,11 @@ namespace OV.Tools.Generators.Password
 		[Fact]
 		public void TestMethod1()
 		{
-			PasswordBuilder b = new PasswordBuilder();
+			PasswordBuilder pb = new PasswordBuilder();
+            pb.AddChunk(new Chunk() { Alpha = "a", Min = 2 });
+            pb.AddChunk(new Chunk() { Alpha = "b", Min = 2 });
+            Assert.Equal(pb.MinLengthSetByRules, 4);
+
 		}
 	}
 }
